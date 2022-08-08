@@ -1,0 +1,33 @@
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:glob="http://sap.com/xi/SAPGlobal20/Global">
+    <soap:Header />
+    <soap:Body>
+        <glob:ZBO_GetDocumentFilePaymentFile_ViewCreateRequest_sync>
+            <ZBO_GetDocumentFile>
+                <!--Optional:-->
+                <z_UUIDFile2_TXT>{{UUID}}</z_UUIDFile2_TXT>
+                <!--Optional:-->
+                <Attachments DocumentListCompleteTransmissionIndicator="1" ActionCode="04">
+                    <!--Zero or more repetitions:-->
+                    <Document ActionCode="04">
+                        <!--Optional:-->
+                        <VisibleIndicator>1</VisibleIndicator>
+                        <!--Optional:-->
+                        <CategoryCode>2</CategoryCode>
+                        <!--Optional:-->
+                        <TypeCode>10001</TypeCode>
+                        <!--Optional:-->
+                        <MIMECode>text/plain</MIMECode>
+                        <!--Optional:-->
+                        <Name>{{UUID}}</Name>
+                        <!--Optional:-->
+                        <FileContent>
+                            <BinaryObject>{{BinaryObject}}</BinaryObject>
+                        </FileContent>
+                    </Document>
+                </Attachments>
+            </ZBO_GetDocumentFile>
+
+        </glob:ZBO_GetDocumentFilePaymentFile_ViewCreateRequest_sync>
+    </soap:Body>
+    <soap:Header />
+</soap:Envelope>

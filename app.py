@@ -1,3 +1,4 @@
+from email import message
 import os
 import base64
 import shutil
@@ -20,24 +21,55 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+class SingInResponse:
+    error:bool = False
+    message: str = ""
+    data: dict = {}
+
+def sing_in(username:str, password: str) -> SingInResponse:
+    sql = f"select * from users where email='{username}' and password='{password}'"
+    result = db.fetchone(sql)
+    response = SingInResponse()
+    if result is None:
+        response.error = True
+        response.message = "Usuario no existe"
+    else:
+        response.error = False
+        response.message = "ok"
+        response.data = result
+
+    return response
+
+
 def auth(f):
     @wraps(f)
     def func(*args, **kvargs):
-
-        if "Token" in request.headers:
-            token = request.headers['Token']
-            result = jwt.decode(token)
-
-            if result.get('error', True):
-                return result
-
-            return f(*args, **kvargs)
-
+        if request.authorization is not None:
+            username = request.authorization.get("username")
+            password = request.authorization.get("password")
+            result = sing_in(username, password)
+            if result.error:
+                return {
+                    "error": True,
+                    "message": result.message
+                }
+            else:
+                return f(*args, **kvargs)
         else:
-            return {
-                "error": True,
-                "message": "Token no incluido"
-            }
+            if "Token" in request.headers:
+                token = request.headers['Token']
+                result = jwt.decode(token)
+
+                if result.get('error', True):
+                    return result
+
+                return f(*args, **kvargs)
+
+            else:
+                return {
+                    "error": True,
+                    "message": "Token no incluido"
+                }
 
     return func
 
@@ -54,9 +86,11 @@ def auth_singin():
     email = body.get('email', '')
     password = body.get('password', '')
 
-    sql = f"select * from users where email='{email}' and password='{password}'"
-    result = db.fetchone(sql)
-    if result is None:
+    # sql = f"select * from users where email='{email}' and password='{password}'"
+    # result = db.fetchone(sql)
+
+    result = sing_in(email, password)
+    if result.error is False:
         return {
             'error': True,
             'message': 'Usuario o Password son incorrectos'
@@ -64,7 +98,7 @@ def auth_singin():
 
     return {
         'error': False,
-        'token': jwt.encode(result)
+        'token': jwt.encode(result.data)
     }
 
 

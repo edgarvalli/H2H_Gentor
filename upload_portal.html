@@ -139,31 +139,32 @@
 
         spinner.classList.remove("d-none");
 
-        const request = await fetch("/h2h/auth/singin", {
-          method: "post",
-          body: JSON.stringify({
-            email: iEmail.value,
-            password: iPassword.value,
-          }),
-          headers: {
-            "Content-Type": "Application/Json",
-          },
-        });
+        // const request = await fetch("/h2h/auth/singin", {
+        //   method: "post",
+        //   body: JSON.stringify({
+        //     email: iEmail.value,
+        //     password: iPassword.value,
+        //   }),
+        //   headers: {
+        //     "Content-Type": "Application/Json"
+        //   },
+        // });
 
-        const response = await request.json();
-        if (response.error) {
-          spinner.classList.add("d-none");
-          return alert(response.message);
-        }
+        // const response = await request.json();
+        // if (response.error) {
+        //   spinner.classList.add("d-none");
+        //   return alert(response.message);
+        // }
         console.log(iFile.files[0].name.split(".")[0]);
         let fileContent = await getBase64(iFile.files[0]);
         fileContent = fileContent.split(",")[1];
 
+        const token = btoa(iEmail.value + ":" + iPassword.value)
         const request2 = await fetch("/h2h/upload", {
           method: "post",
           headers: {
             "Content-Type": "Application/Json",
-            Token: response.token,
+            "Authorization": "Basic " + token,
           },
           body: JSON.stringify({
             fileName: iFile.files[0].name.split(".")[0],
