@@ -93,7 +93,7 @@ def auth_singin():
     result = sing_in(email, password)
 
     print(result.error)
-    if result.error is False:
+    if result.error:
         return {
             'error': True,
             'message': 'Usuario o Password son incorrectos'
