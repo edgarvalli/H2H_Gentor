@@ -70,21 +70,22 @@ def monitor():
 
     for file in files:
         if file not in exclude:
-            output_file = f"{outpath}\\{file}"
+            # output_file = f"{outpath}\\{file}"
             fileout_path = f"{DECRYPT_OUT}\\{file.replace('.in','.out')}"
-            print(os.path.exists(output_file))
-            if file.endswith("01.out") == False:
-                print(fileout_path)
-                print("Obteniendo archivo del servidor")
-                sftp.get(file, f"{outpath}\\backup\\{file}")
-                sftp.get(file, f"{outpath}\\{file}")
-                print("Desencriptando archivo")
-                decrypt_file(file)
-                print("Removiendo archivo del servidor")
-                sftp.remove(file)
-                print(f"Subiendo el archivo al SAP ({fileout_path})")
-                insert_to_sap(filepath=fileout_path)
-                #os.system(f'C:\\H2H_SERVER\\scripts\\UploadToSap\\GetFileBankSap.exe "{fileout_path}"')
+            
+            print(file)
+
+            print(fileout_path)
+            print("Obteniendo archivo del servidor")
+            sftp.get(file, f"{outpath}\\backup\\{file}")
+            sftp.get(file, f"{outpath}\\{file}")
+            print("Desencriptando archivo")
+            decrypt_file(file)
+            print("Removiendo archivo del servidor")
+            sftp.remove(file)
+            print(f"Subiendo el archivo al SAP ({fileout_path})")
+            insert_to_sap(filepath=fileout_path)
+    
     sftp.close()
 
 # monitor()
