@@ -92,7 +92,7 @@ def auth_singin():
 
     result = sing_in(email, password)
 
-    print(result)
+    print(result.error)
     if result.error is False:
         return {
             'error': True,
