@@ -73,9 +73,17 @@ def monitor():
             # output_file = f"{outpath}\\{file}"
             fileout_path = f"{DECRYPT_OUT}\\{file.replace('.in','.out')}"
             
-            print(file)
+            __log = f"""
+                ================================================================================
+                =                                                                              =
+                =                                                                              =
+                =                       {file}                                                 =
+                =                                                                              =
+                =                                                                              =
+                ================================================================================
+            """
 
-            print(fileout_path)
+            print(__log)
             print("Obteniendo archivo del servidor")
             sftp.get(file, f"{outpath}\\backup\\{file}")
             sftp.get(file, f"{outpath}\\{file}")
