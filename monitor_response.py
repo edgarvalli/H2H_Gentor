@@ -73,7 +73,7 @@ def monitor():
             output_file = f"{outpath}\\{file}"
             fileout_path = f"{DECRYPT_OUT}\\{file.replace('.in','.out')}"
             print(os.path.exists(output_file))
-            if os.path.exists(output_file) == False or file.endswith(".01.out") == False:
+            if file.endswith("01.out") == False:
                 print(fileout_path)
                 print("Obteniendo archivo del servidor")
                 sftp.get(file, f"{outpath}\\backup\\{file}")
