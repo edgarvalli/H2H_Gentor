@@ -53,17 +53,17 @@ def auth(f):
 
             return f(*args, **kvargs)
         
-        elif request.authorization is not None:
-            username = request.authorization.get("username")
-            password = request.authorization.get("password")
-            result = sing_in(username, password)
-            if result.error:
-                return {
-                    "error": True,
-                    "message": result.message
-                }
-            else:
-                return f(*args, **kvargs)
+        # elif request.authorization is not None:
+        #     username = request.authorization.get("username")
+        #     password = request.authorization.get("password")
+        #     result = sing_in(username, password)
+        #     if result.error:
+        #         return {
+        #             "error": True,
+        #             "message": result.message
+        #         }
+        #     else:
+        #         return f(*args, **kvargs)
         
 
         else:
