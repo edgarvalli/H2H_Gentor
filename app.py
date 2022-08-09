@@ -37,8 +37,6 @@ def sing_in(username:str, password: str) -> SingInResponse:
         response.error = False
         response.message = "ok"
         response.data = result
-    
-    print(result)
 
     return response
 
@@ -94,7 +92,7 @@ def auth_singin():
 
     result = sing_in(email, password)
 
-    print(result.data)
+    print(result)
     if result.error is False:
         return {
             'error': True,
