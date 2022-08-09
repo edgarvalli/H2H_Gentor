@@ -1,0 +1,36 @@
+{
+  "soap-env:Envelope": {
+    "@xmlns:soap-env": "http://schemas.xmlsoap.org/soap/envelope/",
+    "soap-env:Header": "None",
+    "soap-env:Body": {
+      "n0:ZBO_GetDocumentFilePaymentFile_ViewCreateConfirmation_sync": {
+        "@xmlns:n0": "http://sap.com/xi/SAPGlobal20/Global",
+        "@xmlns:prx": "urn:sap.com:proxy:H9O:/1SAI/TAS1873B49AC3CECB8EB487:804",
+        "ZBO_GetDocumentFile": {
+          "SAP_UUID": "fa163ea9-86dc-1eed-85ed-a50d79cf80f6"
+        },
+        "Log": {
+          "MaximumLogItemSeverityCode": "3",
+          "Item": [
+            {
+              "TypeID": "013(//DOC/DS_COMMON/)",
+              "CategoryCode": "SEI.FSI",
+              "SeverityCode": "3",
+              "Note": "Document FA163EA986DC1EDD83BF9ECCEA8C2D1A already exists"
+            },
+            {
+              "TypeID": "001(/Y95U890AY_8924E0236E/)",
+              "SeverityCode": "1",
+              "Note": "Aviso: El documento se creo correctamente"
+            },
+            {
+              "TypeID": "007(/CSG_RUNTIME/)",
+              "SeverityCode": "1",
+              "Note": "Create operation was successful"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

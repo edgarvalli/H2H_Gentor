@@ -44,7 +44,16 @@ def sing_in(username:str, password: str) -> SingInResponse:
 def auth(f):
     @wraps(f)
     def func(*args, **kvargs):
-        if request.authorization is not None:
+        if "Token" in request.headers:
+            token = request.headers['Token']
+            result = jwt.decode(token)
+
+            if result.get('error', True):
+                return result
+
+            return f(*args, **kvargs)
+        
+        elif request.authorization is not None:
             username = request.authorization.get("username")
             password = request.authorization.get("password")
             result = sing_in(username, password)
@@ -55,21 +64,13 @@ def auth(f):
                 }
             else:
                 return f(*args, **kvargs)
+        
+
         else:
-            if "Token" in request.headers:
-                token = request.headers['Token']
-                result = jwt.decode(token)
-
-                if result.get('error', True):
-                    return result
-
-                return f(*args, **kvargs)
-
-            else:
-                return {
-                    "error": True,
-                    "message": "Token no incluido"
-                }
+            return {
+                "error": True,
+                "message": "Token no incluido"
+            }
 
     return func
 
