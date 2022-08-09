@@ -2,6 +2,8 @@ import os
 import time
 import paramiko
 from datetime import datetime
+from helpers.sapws.sapws import SapWS
+from helpers.gentormailer import GentorMailer,EmailAttachment
 
 APIDECODECIFRADO = "C:\\apicifrado\\CmpApiCifradoDecode.bat"
 DECRYPT_IN = "C:\\apicifrado\\DecodeEntrada"
@@ -9,13 +11,45 @@ DECRYPT_OUT = "C:\\apicifrado\\DecodeSalida"
 USER = "089000005643"
 HOST = "192.240.110.98"
 
+def insert_to_sap(filepath: str):
+    while os.path.exists(filepath) == False:
+        print("El archivo no existe aun")
+        
+    sapws = SapWS()
+    sapws.render_binary_to_base64(filepath)
+    r = sapws.insert_payment_file()
+
+    rows = ""
+
+    for row in r.message.split("\n"):
+        rows += "<tr><td>" + row + "</td></tr>"
+
+    html = f"""
+        <table>
+            {rows}
+        </table>
+    """
+
+    attach = EmailAttachment()
+    attach.filename = os.path.basename(filepath)
+    f = open(filepath, "rb")
+    attach.content = f.read()
+    f.close()
+
+    mailer = GentorMailer()
+    mailer.attachemnts.append(attach)
+    mailer.emails_recipients.append("evalli@gentor.com")
+    mailer.emails_recipients.append("becario.ti@gentor.com")
+    mailer.subject = "[EVENTLOG][H2H] Archivo guardado"
+    mailer.send(html=html)
 
 def decrypt_file(filename=""):
     filein_path = f"{DECRYPT_IN}\\{filename}"
     fileout_path = f"{DECRYPT_OUT}\\{filename.replace('.in','.out')}"
     cmd = f"{APIDECODECIFRADO} {filein_path} {fileout_path}"
-    print(cmd)
+    # print(cmd)
     os.system(cmd)
+    insert_to_sap(filepath=fileout_path)
 
 
 def monitor():
