@@ -49,7 +49,6 @@ def decrypt_file(filename=""):
     cmd = f"{APIDECODECIFRADO} {filein_path} {fileout_path}"
     # print(cmd)
     os.system(cmd)
-    insert_to_sap(filepath=fileout_path)
 
 
 def monitor():
@@ -74,7 +73,7 @@ def monitor():
             output_file = f"{outpath}\\{file}"
             fileout_path = f"{DECRYPT_OUT}\\{file.replace('.in','.out')}"
             print(os.path.exists(output_file))
-            if os.path.exists(output_file) is False:
+            if os.path.exists(output_file) == False or file.endswith(".01.out") == False:
                 print(fileout_path)
                 print("Obteniendo archivo del servidor")
                 sftp.get(file, f"{outpath}\\backup\\{file}")
@@ -84,6 +83,7 @@ def monitor():
                 print("Removiendo archivo del servidor")
                 sftp.remove(file)
                 print(f"Subiendo el archivo al SAP ({fileout_path})")
+                insert_to_sap(filepath=fileout_path)
                 #os.system(f'C:\\H2H_SERVER\\scripts\\UploadToSap\\GetFileBankSap.exe "{fileout_path}"')
     sftp.close()
 
