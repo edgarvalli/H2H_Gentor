@@ -37,6 +37,8 @@ def sing_in(username:str, password: str) -> SingInResponse:
         response.error = False
         response.message = "ok"
         response.data = result
+    
+    print(result)
 
     return response
 
@@ -53,17 +55,17 @@ def auth(f):
 
             return f(*args, **kvargs)
         
-        # elif request.authorization is not None:
-        #     username = request.authorization.get("username")
-        #     password = request.authorization.get("password")
-        #     result = sing_in(username, password)
-        #     if result.error:
-        #         return {
-        #             "error": True,
-        #             "message": result.message
-        #         }
-        #     else:
-        #         return f(*args, **kvargs)
+        elif request.authorization is not None:
+            username = request.authorization.get("username")
+            password = request.authorization.get("password")
+            result = sing_in(username, password)
+            if result.error:
+                return {
+                    "error": True,
+                    "message": result.message
+                }
+            else:
+                return f(*args, **kvargs)
         
 
         else:
@@ -91,6 +93,8 @@ def auth_singin():
     # result = db.fetchone(sql)
 
     result = sing_in(email, password)
+
+    print(result)
     if result.error is False:
         return {
             'error': True,
