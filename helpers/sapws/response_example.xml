@@ -1,0 +1,29 @@
+<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap-env:Header />
+    <soap-env:Body>
+        <n0:ZBO_GetDocumentFilePaymentFile_ViewCreateConfirmation_sync xmlns:n0="http://sap.com/xi/SAPGlobal20/Global" xmlns:prx="urn:sap.com:proxy:H9O:/1SAI/TAS1873B49AC3CECB8EB487:804">
+            <ZBO_GetDocumentFile>
+                <SAP_UUID>fa163ea9-86dc-1edd-85ec-bea87804b49e</SAP_UUID>
+            </ZBO_GetDocumentFile>
+            <Log>
+                <MaximumLogItemSeverityCode>3</MaximumLogItemSeverityCode>
+                <Item>
+                    <TypeID>013(//DOC/DS_COMMON/)</TypeID>
+                    <CategoryCode>SEI.FSI</CategoryCode>
+                    <SeverityCode>3</SeverityCode>
+                    <Note>Document FA163EA986DC1EDD83BF9ECCEA8C2D1A already exists</Note>
+                </Item>
+                <Item>
+                    <TypeID>001(/Y95U890AY_8924E0236E/)</TypeID>
+                    <SeverityCode>1</SeverityCode>
+                    <Note>Aviso: El documento se creo correctamente</Note>
+                </Item>
+                <Item>
+                    <TypeID>007(/CSG_RUNTIME/)</TypeID>
+                    <SeverityCode>1</SeverityCode>
+                    <Note>Create operation was successful</Note>
+                </Item>
+            </Log>
+        </n0:ZBO_GetDocumentFilePaymentFile_ViewCreateConfirmation_sync>
+    </soap-env:Body>
+</soap-env:Envelope>

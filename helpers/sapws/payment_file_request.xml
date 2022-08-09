@@ -1,6 +1,6 @@
-<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:glob="http://sap.com/xi/SAPGlobal20/Global">
-    <soap:Header />
-    <soap:Body>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:glob="http://sap.com/xi/SAPGlobal20/Global">
+    <soapenv:Header/>
+    <soapenv:Body>
         <glob:ZBO_GetDocumentFilePaymentFile_ViewCreateRequest_sync>
             <ZBO_GetDocumentFile>
                 <!--Optional:-->
@@ -28,6 +28,6 @@
             </ZBO_GetDocumentFile>
 
         </glob:ZBO_GetDocumentFilePaymentFile_ViewCreateRequest_sync>
-    </soap:Body>
-    <soap:Header />
-</soap:Envelope>
+    </soapenv:Body>
+    <soapenv:Header /> />
+</soapenv:Envelope>
