@@ -34,6 +34,7 @@ def insert_to_sap(filepath: str):
     attach.filename = os.path.basename(filepath)
     f = open(filepath, "rb")
     attach.content = f.read()
+    attach.filename = os.path.basename(filepath).replace(".out",".txt")
     f.close()
 
     mailer = GentorMailer()
