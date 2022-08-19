@@ -115,11 +115,11 @@ def monitor():
 
             print("Desencriptando archivo")
             filedata = decrypt_file(file)
-            newfilename = filedata.get("filename","noname")
+            # newfilename = filedata.get("filename","noname")
             id = filedata.get("id",0)
 
-            os.rename(backup_path, f"{outpath}\\backup\\{newfilename}")
-            os.rename(backup_path, f"{outpath}\\{newfilename}")
+            # os.rename(backup_path, f"{outpath}\\backup\\{newfilename}")
+            # os.rename(backup_path, f"{outpath}\\{newfilename}")
 
             print("Removiendo archivo del servidor")
             sftp.remove(file)
