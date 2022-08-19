@@ -58,7 +58,6 @@ def insert_to_sap(filepath: str, id: int = 0):
 def decrypt_file(filename=""):
     
     id = filename.split("_")
-    filename = id[1]
     id = id[0]
 
     filein_path = f"{DECRYPT_IN}\\{filename}"
