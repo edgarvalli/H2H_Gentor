@@ -76,7 +76,6 @@ def auth(f):
 
 @app.route('/h2h', methods=['GET', 'POST'])
 def Index():
-    print(request.headers.get("Domain", None))
     return "H2H Running"
 
 
@@ -107,7 +106,7 @@ def auth_singin():
 
 @app.route('/h2h/portal')
 def portal():
-    print(request.headers)
+    print(request.headers.get("Domain", None))
     return send_file('upload_portal.html')
 
 @app.route('/h2h/wsdl')
