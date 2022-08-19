@@ -52,7 +52,7 @@ def insert_to_sap(filepath: str, id: int = 0):
     mailer = GentorMailer()
     mailer.attachemnts.append(attach)
     mailer.emails_recipients.append("evalli@gentor.com")
-    # mailer.emails_recipients.append("vcoronado@gentor.com")
+    mailer.emails_recipients.append("vcoronado@gentor.com")
     mailer.subject = "[EVENTLOG][H2H] Archivo guardado"
     mailer.send(html=html)
 
