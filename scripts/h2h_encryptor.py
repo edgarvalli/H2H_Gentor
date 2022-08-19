@@ -11,10 +11,11 @@ DECRYPT_IN = "C:\\apicifrado\\DecodeEntrada"
 DECRYPT_OUT = "C:\\apicifrado\\DecodeSalida"
 
 
-def encrypt_file(file=FILE_PATH, filename="payment"):
+def encrypt_file(file=FILE_PATH):
     # filename = f"tran{datetime.now().strftime('%Y%m%d%H%M%S_%f')}.in"
 
-    filename = f"{filename}.in"
+    filename = os.path.basename(file)
+    filename = filename.replace(".txt",".in")
 
     fileout = f"{ENCRYPT_OUT}\\{filename}"
 

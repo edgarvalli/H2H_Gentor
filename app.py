@@ -164,7 +164,7 @@ def h2h_request():
 
     file_path = f"C:\\H2H_SERVER\\output\\{filename}"
     shutil.copyfile(output_path, file_path)
-    h2h_encryptor.encrypt_file(file=file_path, filename=filename)
+    h2h_encryptor.encrypt_file(file=file_path)
 
     return {
         "error": False,
