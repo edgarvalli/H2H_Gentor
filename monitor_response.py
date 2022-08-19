@@ -22,8 +22,8 @@ def insert_to_sap(filepath: str, id: int = 0):
     sapws.uuid = r.get("SapUUID","")
     r = sapws.insert_payment_file()
 
-    fileout = sapws.binaryB64
-    db.update(f"UPDATE bankfiles SET FileOut={fileout} WHERE Id={id}")
+    fileout = sapws.binaryB64.decode("utf-8")
+    db.update(f"UPDATE bankfiles SET FileOut='{fileout}' WHERE Id={id}")
 
     rows = ""
 
