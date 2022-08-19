@@ -107,6 +107,7 @@ def auth_singin():
 
 @app.route('/h2h/portal')
 def portal():
+    print(request.headers)
     return send_file('upload_portal.html')
 
 @app.route('/h2h/wsdl')
@@ -117,7 +118,6 @@ def wsdl():
 @app.route('/h2h/upload', methods=['POST'])
 @auth
 def h2h_request():
-    print(request.headers)
     data = request.get_json()
     filename = data.get('fileName', 'sap_layout')
     # filename = filename.replace(" ","_")
