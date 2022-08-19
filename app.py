@@ -106,7 +106,6 @@ def auth_singin():
 
 @app.route('/h2h/portal')
 def portal():
-    print(request.headers.get("Domain", None))
     return send_file('upload_portal.html')
 
 @app.route('/h2h/wsdl')
@@ -117,17 +116,31 @@ def wsdl():
 @app.route('/h2h/upload', methods=['POST'])
 @auth
 def h2h_request():
+    mode = "dev"
+    domain = request.headers.get("Domain", None)
+    if domain == "h2h.gentor.com":
+        mode = "prod"
+    
+
     data = request.get_json()
     filename = data.get('fileName', 'sap_layout')
-    # filename = filename.replace(" ","_")
-    # WINDOWS_LINE_ENDING = b'\r\n'
-    # UNIX_LINE_ENDING = b'\n'
+    filecontent = data.get('fileContent', 'empty')
 
-    file_content = base64.b64decode(data.get('fileContent', 'empty'))
+    query = f"""
+        INSERT INTO bankfiles (SapUUID, Mode, FileIn)
+        VALUES ('{filename}', '{mode}', '{filecontent}')
+    """
 
+    id = db.insert(query)
+
+    filename = f"{id}_{filename}"
+
+    file_content = base64.b64decode(filecontent)
     file_content = file_content.decode('utf-8').split('\n')
     filename = f"{filename}.{data.get('fileExt','txt')}"
     output_path = f"C:\\H2H_SERVER\\repository\\sap\\{filename}"
+
+
 
     if os.path.exists(output_path):
         os.unlink(output_path)
