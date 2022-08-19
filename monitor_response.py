@@ -22,6 +22,7 @@ def insert_to_sap(filepath: str, id: int = 0):
     sapws = SapWS()
     sapws.mode = mode
     sapws.render_binary_to_base64(filepath)
+    sapws.uuid = r.get("SapUUID","")
     r = sapws.insert_payment_file()
 
     db.update(f"UPDATE bankfiles SET FileOut='{sapws.binaryB64}' WHERE Id={id}")
@@ -115,7 +116,7 @@ def monitor():
 
             print("Desencriptando archivo")
             filedata = decrypt_file(file)
-            # newfilename = filedata.get("filename","noname")
+            newfilename = filedata.get("filename","noname")
             id = filedata.get("id",0)
 
             # os.rename(backup_path, f"{outpath}\\backup\\{newfilename}")
