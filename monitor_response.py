@@ -12,10 +12,7 @@ DECRYPT_OUT = "C:\\apicifrado\\DecodeSalida"
 USER = "089000005643"
 HOST = "192.240.110.98"
 
-def insert_to_sap(filepath: str, id: int = 0):
-    while os.path.exists(filepath) == False:
-        print("El archivo no existe aun")
-    
+def insert_to_sap(filepath: str, id: int = 0):    
     r = db.fetchone(f"select * from bankfiles where Id={id}")
     mode = r.get("Mode","dev")
 
@@ -116,7 +113,6 @@ def monitor():
 
             print("Desencriptando archivo")
             filedata = decrypt_file(file)
-            newfilename = filedata.get("filename","noname")
             id = filedata.get("id",0)
 
             # os.rename(backup_path, f"{outpath}\\backup\\{newfilename}")
@@ -125,6 +121,11 @@ def monitor():
             print("Removiendo archivo del servidor")
             sftp.remove(file)
             print(f"Subiendo el archivo al SAP ({fileout_path})")
+
+            while os.path.exists(fileout_path) == False:
+                print("El archivo no existe aun")
+                time.sleep(1)
+                
             insert_to_sap(filepath=fileout_path, id=id)
     
     sftp.close()
