@@ -1,4 +1,3 @@
-from email import message
 import os
 import base64
 import shutil
@@ -77,6 +76,7 @@ def auth(f):
 
 @app.route('/h2h', methods=['GET', 'POST'])
 def Index():
+    print(request.headers.get("Domain", None))
     return "H2H Running"
 
 
