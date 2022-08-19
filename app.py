@@ -107,7 +107,7 @@ def auth_singin():
 
 @app.route('/h2h/portal')
 def portal():
-    print(request.url_root)
+    print(request.headers)
     return send_file('upload_portal.html')
 
 @app.route('/h2h/wsdl')
