@@ -123,9 +123,9 @@ def monitor():
             print(f"Subiendo el archivo al SAP ({fileout_path})")
 
             while os.path.exists(fileout_path) == False:
-                print("El archivo no existe aun")
+                print(f"El archivo no existe aun ({fileout_path})")
                 time.sleep(1)
-                
+
             insert_to_sap(filepath=fileout_path, id=id)
     
     sftp.close()
