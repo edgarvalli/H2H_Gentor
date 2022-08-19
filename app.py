@@ -117,7 +117,7 @@ def wsdl():
 @app.route('/h2h/upload', methods=['POST'])
 @auth
 def h2h_request():
-
+    print(request.headers)
     data = request.get_json()
     filename = data.get('fileName', 'sap_layout')
     # filename = filename.replace(" ","_")
