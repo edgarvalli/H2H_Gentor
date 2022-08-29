@@ -12,7 +12,7 @@ class SapWSResponse:
 class SapWS:
     endpoint = {
         "dev": "https://my351064.sapbydesign.com/sap/bc/srt/scs/sap/yy95u890ay_ws_insertpaymentfil?sap-vhost=my351064.sapbydesign.com",
-        "prod": ""
+        "prod": "https://my353505.sapbydesign.com/sap/bc/srt/scs/sap/yy95u890ay_ws_insertpaymentfil?sap-vhost=my353505.sapbydesign.com"
     }
 
     mode = "dev"
