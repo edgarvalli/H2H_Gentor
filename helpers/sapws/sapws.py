@@ -35,6 +35,8 @@ class SapWS:
         xml_content = xml_content.replace("{{BinaryObject}}", self.binaryB64.decode("utf-8") )
         
         sap_auth = HTTPBasicAuth("SAP_ADMIN","tt3&GQZG6yGI")
+        if self.mode == "prod":
+            sap_auth = HTTPBasicAuth("_SC_SENDPAYF","Dintec_2022*")
         uri = self.endpoint[self.mode]
         headers = {"Content-Type": "text/xml; charset=utf-8"}
 
